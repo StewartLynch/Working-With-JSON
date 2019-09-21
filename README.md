@@ -28,6 +28,11 @@ class User: Codable {
     let origin:Origin
     var family:[Family]
     
+    func newFamilyMember(name:String, age:Int) {
+        let newMember = Family(name: name, age: age)
+        family.append(newMember)
+    }
+    
     internal init(name: String, favouriteNumber: Int, isProgrammer: Bool, origin: Origin, family: [Family]) {
         self.name = name
         self.favouriteNumber = favouriteNumber
@@ -36,6 +41,7 @@ class User: Codable {
         self.family = family
     }
 }
+
 
 struct Origin: Codable {
     let city:String
@@ -46,6 +52,7 @@ struct Family:Codable {
     let name:String
     let age: Int
 }
+
 ```
 
 
@@ -117,23 +124,26 @@ struct Family:Codable {
 
 ### DataSource functions
 
+The functions us generics so you can passs any object to decode and ecode.
+
 ```swift
 enum DataSource {
-    static func loadSeedData() -> [User] {
-        guard let url = Bundle.main.url(forResource: "SeedData", withExtension: "json") else {
-            fatalError("Could not find SeedData.json")
+    
+    static func loadSeedData<T: Decodable>(_ type: T.Type, from file: String) -> T {
+        guard let url = Bundle.main.url(forResource: file, withExtension: nil) else {
+            fatalError("Could not find \(file)")
         }
         guard let data = try? Data(contentsOf: url) else {
-            fatalError("Failed to load SeedDatal.json from bundle")
+            fatalError("Failed to load \(file) from bundle")
         }
         let decoder = JSONDecoder()
-        guard let loaded = try? decoder.decode([User].self, from: data) else {
-            fatalError("Failed to decode SeedData.json from bundle")
+        guard let loaded = try? decoder.decode(T.self, from: data) else {
+            fatalError("Failed to decode \(file) from bundle")
         }
         return loaded
     }
     
-    static func createNewJSON(from data: [User]) -> String {
+    static func createNewJSON<T: Encodable>(from data: T) -> String {
         let encoder = JSONEncoder()
         guard let newJSON = try? encoder.encode(data) else {
             fatalError("Could not encode data")

@@ -13,14 +13,14 @@ enum DataSource {
     
     static func loadSeedData<T: Decodable>(_ type: T.Type, from file: String) -> T {
         guard let url = Bundle.main.url(forResource: file, withExtension: nil) else {
-            fatalError("Could not find SeedData.json")
+            fatalError("Could not find \(file)")
         }
         guard let data = try? Data(contentsOf: url) else {
-            fatalError("Failed to load SeedDatal.json from bundle")
+            fatalError("Failed to load \(file) from bundle")
         }
         let decoder = JSONDecoder()
         guard let loaded = try? decoder.decode(T.self, from: data) else {
-            fatalError("Failed to decode SeedData.json from bundle")
+            fatalError("Failed to decode \(file) from bundle")
         }
         return loaded
     }
