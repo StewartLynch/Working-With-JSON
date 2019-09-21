@@ -15,6 +15,11 @@ class User: Codable {
     let origin:Origin
     var family:[Family]
     
+    func newFamilyMember(name:String, age:Int) {
+        let newMember = Family(name: name, age: age)
+        family.append(newMember)
+    }
+    
     internal init(name: String, favouriteNumber: Int, isProgrammer: Bool, origin: Origin, family: [Family]) {
         self.name = name
         self.favouriteNumber = favouriteNumber

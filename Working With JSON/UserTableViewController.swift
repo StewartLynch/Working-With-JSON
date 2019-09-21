@@ -13,11 +13,7 @@ class UserTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadSeedData()
-    }
-    
-    func loadSeedData() {
-        users = DataSource.loadSeedData()
+        users = DataSource.loadSeedData([User].self, from: "SeedData.json")
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -41,13 +37,11 @@ class UserTableViewController: UITableViewController {
         let selectedRow = tableView.indexPathForSelectedRow?.row
         let user = users[selectedRow!]
         vc.user = user
-        
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         performSegue(withIdentifier: "showFamily", sender: nil)
     }
-    
     
     @IBAction func addUsers(_ sender: Any) {
         let alert = UIAlertController(title: "New User", message: "", preferredStyle: .alert)
@@ -82,6 +76,7 @@ class UserTableViewController: UITableViewController {
     }
     
     @IBAction func createJSON(_ sender: Any) {
-        print(DataSource.createNewJSON(from: users))
+        let JSONString = DataSource.createNewJSON(from: users)
+        print(JSONString)
     }
 }

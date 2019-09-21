@@ -50,11 +50,10 @@ class FamilyTableViewController: UITableViewController {
          alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { [weak alert] (_) in
             let name = alert?.textFields![0].text
             let age = Int((alert?.textFields![1].text)!)
-            let newMember = Family(name: name ?? "No name", age: age ?? 0)
-            self.user.family.append(newMember)
+            self.user.newFamilyMember(name: name ?? "No name", age: age ?? 0)
             self.tableView.reloadData()
            }))
-           // 4. Present the alert.
+
            self.present(alert, animated: true, completion: nil)
     }
     
