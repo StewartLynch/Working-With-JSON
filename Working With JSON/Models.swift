@@ -9,7 +9,6 @@
 import Foundation
 
 class User: Codable {
-    
     let name:String
     let favouriteNumber: Int
     let isProgrammer: Bool
