@@ -14,7 +14,7 @@ The reading (decoding) and creating (encoding) of the json is done through the t
 
 Here I show adding content to the Users and Family objects and generating new JSON that is displayed on the console.
 
-![SampleProject](/Users/slynch/Dropbox/Xcode Swift Techniques/Working With JSON/SampleProject.gif)
+![SampleProject](SampleProject.gif)
 
 Note:  Project is built using Xcode 11
 
